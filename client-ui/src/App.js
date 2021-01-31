@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
+
 import './App.css';
 
 function App() {
+
+  const [chatInput, setChatInput] = useState("");
+
+  const handleChangeInput = (evt) => {
+    console.log(evt.target.value);
+    setChatInput(evt.target.value);
+  }
+
+  const handleTextSubmit = () => {
+    console.log(chatInput);
+    setChatInput("");
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="textInput">
+        <input className = "chatInput" value={chatInput} onChange={handleChangeInput} />
+        <button onClick={handleTextSubmit}>send </button>
+      </div>
+      <div className="texts">
+
+      </div>
     </div>
   );
 }
