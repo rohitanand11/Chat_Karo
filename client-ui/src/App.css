@@ -1,0 +1,19 @@
+.App{
+  box-sizing: border-box;
+  height: 100%;
+  width:100%;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top:10px;
+}
+
+.textInput{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.chatInput{
+  width: 80%;
+}

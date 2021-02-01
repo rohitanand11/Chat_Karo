@@ -1,0 +1,19 @@
+{
+  "name": "chat_karo",
+  "version": "1.0.0",
+  "description": "a simple mern starck chat application with socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohitanand11/Chat_Karo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rohitanand11/Chat_Karo/issues"
+  },
+  "homepage": "https://github.com/rohitanand11/Chat_Karo#readme"
+}
