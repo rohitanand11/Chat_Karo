@@ -18,8 +18,21 @@ app.use(express.static(path.join(__dirname,'public')));
 
 //run when client connects
 io.on('connection',(socket)=>{
-    console.log("new user connected");
+    //to the user only
     socket.emit('message','welcome to my chatroom');
+
+    //brodacast to everyone except the user
+    socket.broadcast.emit('message','A user has joined the chat');
+
+    //to everyone (notfying disconnection)
+    socket.on('disconnect',()=>{
+        io.emit('message','a user has left the chat');
+    })
+
+    //handle if any client sends a message.
+    socket.on('chat_message',(msg)=>{
+        io.emit('new_chat_message',msg);
+    })
 })
 
 server.listen(PORT,()=>{

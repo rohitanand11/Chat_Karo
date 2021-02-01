@@ -7,32 +7,55 @@ const socket = io('http://localhost:3001');
 
 function App() {
 
+  const [chatInput, setChatInput] = useState("");
+  const [chatLogArray,setChatLogArray] = useState([]);
+
   useEffect(() => {
     socket.on('message', (msg) => {
       console.log(msg);
-    })
+    });
   }, []);
 
-  const [chatInput, setChatInput] = useState("");
+  useEffect(()=>{
+    socket.on('new_chat_message',(msg)=>{
+      console.log(msg);
+      setChatLogArray((chatArray)=>[...chatArray,msg]);
+    });
+  },[]);
 
   const handleChangeInput = (evt) => {
-    console.log(evt.target.value);
+    // console.log(evt.target.value);
     setChatInput(evt.target.value);
   }
 
-  const handleTextSubmit = () => {
-    console.log(chatInput);
-    setChatInput("");
+  const handleSend = () => {
+    if(chatInput.length>0){
+      socket.emit('chat_message',chatInput);
+      setChatInput("");
+    }
+    
+  }
+
+  const renderChatLog = () => {
+    const renderChat = chatLogArray.map((chatObj,index)=>{
+      return (
+        <div key={index}>
+          <p>{chatObj}</p>
+        </div>
+      )
+    });
+
+    return renderChat;
   }
 
   return (
     <div className="App">
       <div className="textInput">
         <input className="chatInput" value={chatInput} onChange={handleChangeInput} />
-        <button onClick={handleTextSubmit}>send </button>
+        <button onClick={handleSend}>send </button>
       </div>
       <div className="texts">
-
+        {renderChatLog()}
       </div>
     </div>
   );
