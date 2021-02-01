@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
-
-
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:3001');
+
 function App() {
+
+  useEffect(() => {
+    socket.on('message', (msg) => {
+      console.log(msg);
+    })
+  }, []);
 
   const [chatInput, setChatInput] = useState("");
 
@@ -20,7 +28,7 @@ function App() {
   return (
     <div className="App">
       <div className="textInput">
-        <input className = "chatInput" value={chatInput} onChange={handleChangeInput} />
+        <input className="chatInput" value={chatInput} onChange={handleChangeInput} />
         <button onClick={handleTextSubmit}>send </button>
       </div>
       <div className="texts">
