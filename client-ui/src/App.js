@@ -1,14 +1,18 @@
+//importing react modules
 import React, { useEffect, useState } from 'react';
+
+//importing local components
+import InitialModal from "./components/initialModal/InitialModal";
+
+//importing css and utility files
 import './App.css';
-
-import io from 'socket.io-client';
-
-const socket = io('http://localhost:3001');
+import { socket } from "./utility/chatLogic/chatLogic";
 
 function App() {
 
   const [chatInput, setChatInput] = useState("");
-  const [chatLogArray,setChatLogArray] = useState([]);
+  const [chatLogArray, setChatLogArray] = useState([]);
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
     socket.on('message', (msg) => {
@@ -16,12 +20,12 @@ function App() {
     });
   }, []);
 
-  useEffect(()=>{
-    socket.on('new_chat_message',(msg)=>{
+  useEffect(() => {
+    socket.on('new_chat_message', (msg) => {
       console.log(msg);
-      setChatLogArray((chatArray)=>[...chatArray,msg]);
+      setChatLogArray((chatArray) => [...chatArray, msg]);
     });
-  },[]);
+  }, []);
 
   const handleChangeInput = (evt) => {
     // console.log(evt.target.value);
@@ -29,15 +33,18 @@ function App() {
   }
 
   const handleSend = () => {
-    if(chatInput.length>0){
-      socket.emit('chat_message',chatInput);
+    if (chatInput.length > 0) {
+      socket.emit('chat_message', chatInput);
       setChatInput("");
     }
-    
+  }
+
+  const handleModal = (pStatus) => {
+    setShowModal(pStatus);
   }
 
   const renderChatLog = () => {
-    const renderChat = chatLogArray.map((chatObj,index)=>{
+    const renderChat = chatLogArray.map((chatObj, index) => {
       return (
         <div key={index}>
           <p>{chatObj}</p>
@@ -50,6 +57,11 @@ function App() {
 
   return (
     <div className="App">
+      {
+        (showModal===true)
+          ? <InitialModal handleModal={handleModal}/>
+          : null
+      } 
       <div className="textInput">
         <input className="chatInput" value={chatInput} onChange={handleChangeInput} />
         <button onClick={handleSend}>send </button>
