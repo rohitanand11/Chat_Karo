@@ -1,10 +1,10 @@
 .App{
-  box-sizing: border-box;
-  padding:0;
+  // box-sizing: border-box;
+  // padding:0;
   height:100vh;
 
   .appWindow{
-    box-sizing: border-box;
+    // box-sizing: border-box;
     display: flex;
     height:100%;
     flex-direction: row;
@@ -12,10 +12,7 @@
     align-items: stretch;
     border:1px solid red;
 
-    .aside{
-      width: 30%;
-      border:1px solid red;
-    }
+    
 
     .chat_window{
       width: 60%;

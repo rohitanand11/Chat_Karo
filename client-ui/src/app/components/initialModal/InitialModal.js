@@ -12,21 +12,6 @@ const InitialModal = ({handleModal}) => {
 
     const [userName,setUserName] = useState("");
 
-    const handleuserName = (evt) => {
-        setUserName(evt.target.value);
-    }
-
-    const handleProceed = () => {
-        const tempUserName = userName.trim();
-        console.log(userName,tempUserName,userName.length,tempUserName.length);
-        if(tempUserName.length > 0) {
-            constants.changeUserName(tempUserName)
-            handleModal(false);
-        } else {
-            alert("enter your Name,it is mandatory");
-        }
-    }
-
     return (
 
         <Modal>
@@ -34,12 +19,8 @@ const InitialModal = ({handleModal}) => {
                 <p className = {Classes.userLabel}> What's your name bruhh ??</p>
                 <input placeholder="Ex: Rohit" 
                     className = {Classes.userInput}
-                    value = {userName}
-                    onChange = {handleuserName}
-                    spellCheck = "false"
                 />
                 <button className = {Classes.proceedButton}
-                    onClick = {handleProceed}
                 >
                     Proceed
                 </button>

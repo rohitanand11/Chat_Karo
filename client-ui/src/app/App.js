@@ -1,58 +1,25 @@
 //importing react modules
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import {toJS} from "mobx";
 
 //importing local components
-import InitialModal from "../components/initialModal/InitialModal";
+import InitialModal from "./components/initialModal/InitialModal";
+import ChatWindow from "./components/chat_window/ChatWindow";
+import SideBar from "./components/aside/SideBar";
 
-//importing css and utility files
+//importing css ,store and utility files
 import Classes from './App.module.scss';
+import {useGlobalStore} from './store/index';
 // import { socket } from "./utility/chatLogic/chatLogic";
 
 function App() {
 
-  const [chatInput, setChatInput] = useState("");
-  const [chatLogArray, setChatLogArray] = useState([]);
+  console.log(useGlobalStore());
+  console.log("tojs",toJS(useGlobalStore()));
+
   const [showModal, setShowModal] = useState(true);
-
-  // useEffect(() => {
-  //   socket.on('message', (msg) => {
-  //     console.log(msg);
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   socket.on('new_chat_message', (msg) => {
-  //     console.log(msg);
-  //     setChatLogArray((chatArray) => [...chatArray, msg]);
-  //   });
-  // }, []);
-
-  const handleChangeInput = (evt) => {
-    // console.log(evt.target.value);
-    setChatInput(evt.target.value);
-  }
-
-  // const handleSend = () => {
-  //   if (chatInput.length > 0) {
-  //     socket.emit('chat_message', chatInput);
-  //     setChatInput("");
-  //   }
-  // }
-
   const handleModal = (pStatus) => {
     setShowModal(pStatus);
-  }
-
-  const renderChatLog = () => {
-    const renderChat = chatLogArray.map((chatObj, index) => {
-      return (
-        <div key={index}>
-          <p>{chatObj}</p>
-        </div>
-      )
-    });
-
-    return renderChat;
   }
 
   return (
@@ -60,25 +27,9 @@ function App() {
       {(showModal===true) ? <InitialModal handleModal={handleModal}/> : null} 
 
       <div className={Classes.appWindow}>
-        <div className ={Classes.aside}>
-
-        </div>
-        <div className = {Classes.chat_window}>
-
-        </div>
+        <SideBar/>
+        <ChatWindow/>
       </div>
-
-
-
-
-
-      {/* <div className="textInput">
-        <input className="chatInput" value={chatInput} onChange={handleChangeInput} />
-        <button onClick={handleSend}>send </button>
-      </div>
-      <div className="texts">
-        {renderChatLog()}
-      </div> */}
     </div>
   );
 }
