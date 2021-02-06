@@ -1,6 +1,7 @@
 //importing react modules
-import React, { useState } from 'react';
-import {toJS} from "mobx";
+import React from 'react';
+import { toJS} from "mobx";
+import {observer} from "mobx-react-lite";
 
 //importing local components
 import InitialModal from "./components/initialModal/InitialModal";
@@ -9,29 +10,30 @@ import SideBar from "./components/aside/SideBar";
 
 //importing css ,store and utility files
 import Classes from './App.module.scss';
-import {useGlobalStore} from './store/index';
+import * as App_logic from "./appLogic";
+import {useGlobalStore} from './store';
+
 // import { socket } from "./utility/chatLogic/chatLogic";
 
 function App() {
 
+  const {appstore} = useGlobalStore();
   console.log(useGlobalStore());
   console.log("tojs",toJS(useGlobalStore()));
 
-  const [showModal, setShowModal] = useState(true);
-  const handleModal = (pStatus) => {
-    setShowModal(pStatus);
-  }
+  App_logic.checkAndGetUserId(appstore);
 
   return (
     <div className={Classes.App}>
-      {(showModal===true) ? <InitialModal handleModal={handleModal}/> : null} 
+      {(appstore.showModal===true) ? <InitialModal /> : null} 
 
       <div className={Classes.appWindow}>
         <SideBar/>
         <ChatWindow/>
+        <button onClick={()=>appstore.handleShowModal(true)}>clickme</button>
       </div>
     </div>
   );
 }
 
-export default App;
+export default observer(App);

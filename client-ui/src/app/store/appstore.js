@@ -1,25 +1,40 @@
-import {action, makeObservable , observable} from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 
 class AppStore {
-    showModal =true;
-    counter = 0;
+    showModal = true;
+    userId = "";
+    selfUserName = "";
 
     constructor() {
         makeObservable(this, {
-            showModal:observable,
-            counter:observable,
-            handleShowModal:action,
-            increaseCounter:action,
+            showModal: observable,
+            userId: observable,
+            selfUserName: observable,
+
+            handleShowModal: action,
+            handleUserId: action,
+            handleSelfUserName: action,
+
         });
         // initialization goes here
     }
 
-    handleShowModal(tStatus) {
-        this.showModal = tStatus;
+    handleShowModal(pStatus) {
+        runInAction(() => {
+            this.showModal = pStatus;
+        })
     }
 
-    increaseCounter () {
-        this.counter +=1;
+    handleUserId(pUserId) {
+        runInAction(() => {
+            this.userId = pUserId;
+        })
+    }
+
+    handleSelfUserName(pUserName) {
+        runInAction(() => {
+            this.selfUserName = pUserName;
+        })
     }
 }
 
