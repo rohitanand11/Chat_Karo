@@ -59,7 +59,7 @@ const InitialModal = () => {
 
         <Modal>
             <div className={Classes.main_content}>
-                <p className={Classes.userLabel}> What's your name bruhh ??</p>
+                <p className={Classes.userLabel}>User Name :</p>
                 <input placeholder="Ex: Rohit"
                     className={Classes.userInput}
                     spellCheck="false"

@@ -12,22 +12,5 @@
     align-items: stretch;
     border:1px solid red;
 
-    
-
-    .chat_window{
-      width: 60%;
-      border:1px solid red;
-    }
   }
-}
-
-.textInput{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.chatInput{
-  width: 80%;
 }
